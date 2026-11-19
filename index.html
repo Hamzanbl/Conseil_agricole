@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conseil Agricole</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f3f7f1;color:#243b2a}
+header{background:#176b3a;color:white;padding:25px 18px;border-radius:0 0 25px 25px}
+header h1{margin:0;font-size:25px}
+header p{color:#d8efdc}
+main{padding:18px;max-width:650px;margin:auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card,section{background:white;padding:18px;border-radius:15px;box-shadow:0 2px 9px #0001}
+.card span{font-size:27px}
+.card h3{font-size:15px}
+.card p{font-size:12px;color:#68766a}
+section{margin-top:18px}
+input,select,button{width:100%;padding:13px;margin:7px 0;border:1px solid #ccd8cd;border-radius:9px;font-size:15px}
+button{background:#176b3a;color:white;border:0;font-weight:bold}
+.result{background:#e8f5e9;padding:12px;border-radius:10px;margin-top:10px}
+footer{text-align:center;padding:25px;color:#777}
+</style>
+</head>
+<body>
+<header>
+<h1>🌱 Conseil Agricole</h1>
+<p>Votre assistant intelligent en agriculture</p>
+</header>
+<main>
+<h2>Bienvenue 👋</h2>
+<p>Choisissez votre service agricole :</p>
+<div class="grid">
+<div class="card"><span>🌾</span><h3>Conseil des cultures</h3><p>Accompagnement des cultures</p></div>
+<div class="card"><span>🧪</span><h3>Analyse du sol</h3><p>pH et caractéristiques du sol</p></div>
+<div class="card"><span>💧</span><h3>Irrigation</h3><p>Calcul des besoins en eau</p></div>
+<div class="card"><span>🌿</span><h3>Fertilisation</h3><p>Gestion des engrais</p></div>
+</div>
+<section>
+<h2>🧪 Analyse du pH du sol</h2>
+<input type="number" id="ph" min="0" max="14" step="0.1" placeholder="Valeur du pH (ex: 6.5)">
+<button onclick="analysePH()">Analyser le sol</button>
+<div id="phResult" class="result">Résultat de l'analyse...</div>
+</section>
+<section>
+<h2>💧 Calcul du débit d'irrigation</h2>
+<input type="number" id="volume" placeholder="Volume d'eau en litres">
+<input type="number" id="duree" placeholder="Durée en heures">
+<button onclick="calculDebit()">Calculer le débit</button>
+<div id="debitResult" class="result">Résultat du calcul...</div>
+</section>
+<section>
+<h2>🌱 Conseil agricole</h2>
+<select id="culture">
+<option value="">Choisir une culture</option>
+<option>Tomate</option>
+<option>Pomme de terre</option>
+<option>Olivier</option>
+<option>Agrumes</option>
+<option>Blé</option>
+</select>
+<button onclick="conseil()">Afficher le conseil</button>
+<div id="conseilResult" class="result">Votre conseil apparaîtra ici.</div>
+</section>
+</main>
+<footer>© 2026 Conseil Agricole</footer>
+<script>
+function analysePH(){
+let x=document.getElementById('ph').value;
+let p=Number(x),r=document.getElementById('phResult');
+if(x===''||p<0||p>14){r.innerText="Entrez un pH entre 0 et 14.";return;}
+if(p<5.5)r.innerText="Sol très acide.";
+else if(p<6.5)r.innerText="Sol légèrement acide.";
+else if(p<=7.5)r.innerText="Sol proche de la neutralité.";
+else if(p<=8.5)r.innerText="Sol alcalin.";
+else r.innerText="Sol très alcalin.";
+}
+function calculDebit(){
+let v=Number(document.getElementById('volume').value);
+let t=Number(document.getElementById('duree').value);
+if(v<=0||t<=0){document.getElementById('debitResult').innerText="Entrez des valeurs positives.";return;}
+document.getElementById('debitResult').innerText="Débit moyen : "+(v/t).toFixed(2)+" litres/heure.";
+}
+function conseil(){
+let c=document.getElementById('culture').value;
+document.getElementById('conseilResult').innerText=c?"Culture sélectionnée : "+c+". Adaptez l'irrigation et la fertilisation aux besoins de cette culture.":"Choisissez une culture.";
+}
+</script>
+</body>
+</html>
